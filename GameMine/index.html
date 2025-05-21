@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지뢰찾기 게임</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .game-container {
+            margin-top: 20px;
+            padding: 20px;
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            border-radius: 8px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            text-align: center;
+            background: #c0c0c0;
+            padding: 10px;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 300px;
+        }
+        .difficulty-select {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .difficulty-btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            cursor: pointer;
+        }
+        .difficulty-btn.active {
+            background: #a0a0a0;
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        #game-board {
+            display: grid;
+            gap: 1px;
+            background-color: #808080;
+            border: 3px solid;
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .cell {
+            width: 30px;
+            height: 30px;
+            background-color: #c0c0c0;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .cell.revealed {
+            background-color: #c0c0c0;
+            border: 1px solid #808080;
+            border-style: solid;
+        }
+        .cell.mine {
+            background-color: #ff0000;
+        }
+        .cell.flagged {
+            color: #ff0000;
+        }
+        .status-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            z-index: 1000;
+        }
+        .status-overlay img {
+            width: 200px;
+            height: 200px;
+        }
+        .control-icon {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        #new-game {
+            background: #c0c0c0;
+            border: 3px solid;
+            border-color: #ffffff #808080 #808080 #ffffff;
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        #new-game:active {
+            border-color: #808080 #ffffff #ffffff #808080;
+        }
+        .status-display {
+            background: #000;
+            color: #ff0000;
+            padding: 5px 10px;
+            font-family: 'Digital', monospace;
+            border: 2px solid #808080;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>지뢰찾기</h1>
+    <div class="difficulty-select">
+        <button class="difficulty-btn active" data-difficulty="beginner">초급</button>
+        <button class="difficulty-btn" data-difficulty="intermediate">중급</button>
+        <button class="difficulty-btn" data-difficulty="expert">고급</button>
+    </div>
+    <div class="controls">
+        <button id="new-game">
+            <i class="fas fa-smile control-icon"></i>
+        </button>
+        <div class="status-display">
+            <i class="fas fa-bomb control-icon"></i>
+            <span id="mine-count">10</span>
+        </div>
+        <div class="status-display">
+            <i class="fas fa-clock control-icon"></i>
+            <span id="timer">0</span>
+        </div>
+    </div>
+    <div class="game-container">
+        <div id="game-board"></div>
+    </div>
+    <div class="status-overlay" id="win-overlay">
+        <img src="https://raw.githubusercontent.com/microsoft/emoji-data/main/emoji/trophy/trophy.png" alt="승리">
+    </div>
+    <div class="status-overlay" id="lose-overlay">
+        <img src="https://raw.githubusercontent.com/microsoft/emoji-data/main/emoji/skull/skull.png" alt="패배">
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 
